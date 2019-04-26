@@ -6,8 +6,8 @@
 #include "VECTOR2.h"
 #include "MapCtl.h"
 
-#define GAME_EDIT_SIZE_X 32
-#define GAME_EDIT_SIZE_Y 32
+constexpr unsigned int GAME_EDIT_SIZE_X = 32;
+constexpr unsigned int GAME_EDIT_SIZE_Y = 32;
 
 // —Dæ‡ˆÊ
 // RIGHT>DOWN>LEFT>UP

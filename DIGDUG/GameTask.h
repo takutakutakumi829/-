@@ -41,6 +41,9 @@ public:
 
 	const int& GetClearCnt(void);
 
+	const VECTOR2& GetCheckStone(void);
+	void SetCheckStone(VECTOR2 check);
+
 
 	char keyData[256];
 	char keyDataOld[256];
@@ -76,12 +79,15 @@ private:
 	obj_List objList;
 
 	std::list<obj_ptr>::iterator player;
+	std::list<obj_ptr>::iterator stone;
 	std::list<obj_ptr>::iterator enemy1;
 	std::list<obj_ptr>::iterator enemy2;
 
 	VECTOR2 drawOffset;
 	VECTOR2 ChipSize;
 	VECTOR2 TitleCallSize = { 300,80 };
+	VECTOR2 checkStone = { 0,0 };
+
 	int TitleCallMove = 300;
 
 	// ∂≥›ƒånìù
@@ -91,7 +97,6 @@ private:
 	int ClearCnt = 0;
 
 	static GameTask *s_Instance;
-
 
 };
 

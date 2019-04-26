@@ -4,6 +4,7 @@
 #include "ImageMng.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Stone.h"
 #include "Dxlib.h"	// DxLib×²ÌÞ×Ø‚ðŽg—p‚·‚é
 
 GameTask *GameTask::s_Instance = nullptr;
@@ -98,6 +99,16 @@ const int & GameTask::GetClearCnt(void)
 	return ClearCnt;
 }
 
+const VECTOR2 & GameTask::GetCheckStone(void)
+{
+	return checkStone;
+}
+
+void GameTask::SetCheckStone(VECTOR2 check)
+{
+	checkStone = check;
+}
+
 int GameTask::Title(void)
 {
 	ClsDrawScreen();
@@ -181,6 +192,12 @@ int GameTask::GameInit(void)
 						(*enemy2)->init("image/Enemy.png", VECTOR2(80 / 5, 32 / 2), VECTOR2(5, 2), VECTOR2(1, 0), 1);
 						(*enemy2)->SetPos(VECTOR2(x * CHIP_SIZE - 1, y * CHIP_SIZE - 1));
 						(*enemy2)->AddEnemyCnt(1);
+					}
+					else if (tmp == ITEM_CHIP_STONE)
+					{
+						stone = AddObjlist(std::make_shared<Stone>(GetOffset()));
+						(*stone)->init("image/Stone.png", VECTOR2(32 / 2,16 / 1), VECTOR2(2, 1), VECTOR2(1, 0), 2);
+						(*stone)->SetPos(VECTOR2(x * CHIP_SIZE - 1, y * CHIP_SIZE - 1));
 					}
 				}
 			}
@@ -342,18 +359,12 @@ int GameTask::EditInit(void)
 
 	objList.clear();
 
-	//lpMapCtl.MapLoad();
-
-	//ChipSize = VECTOR2(MapCtl::GetInstance().GetChipSize(), MapCtl::GetInstance().GetChipSize());
-
-	SetOffset(VECTOR2(32, 32));
-
 	objList.push_back(std::make_shared<EditCursor>(keyData, keyDataOld, GetOffset()));
 	auto itr = objList.end();
 	itr--;
 	(*itr)->init("image/Edit_map_Chip2.png", VECTOR2(164 / 10, 80 / 5), VECTOR2(10, 5), VECTOR2(0, 0), 3);// 16,16
-	//GtskPtr = &GameTask::GameInit;
-	GtskPtr = &GameTask::EditMain;
+	GtskPtr = &GameTask::GameInit;
+	//GtskPtr = &GameTask::EditMain;
 	return true;
 }
 

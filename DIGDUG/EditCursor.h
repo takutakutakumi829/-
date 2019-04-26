@@ -5,7 +5,7 @@
 
 
 
-#define EDIT_KEY_GET_RNG (30)
+constexpr unsigned int EDIT_KEY_GET_RNG = (30);
 
 class GameTask;
 

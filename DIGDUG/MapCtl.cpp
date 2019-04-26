@@ -218,14 +218,14 @@ void MapCtl::MapDraw(void)
 					{
 						DrawExtendGraph(x * GET_MAP_SIZE(), y * GET_MAP_SIZE(), x * GET_MAP_SIZE() + CHIP_SIZE, y * GET_MAP_SIZE() + CHIP_SIZE, IMAGE_ID("image/Edit_map_Chip2.png")[GET_MAP_ID2(x, y, gp)], true);
 					}
-					if (tmp == EDIT_CHIP_BBL_OUT || (tmp >= EDIT_CHIP_PL && tmp <= EDIT_CHIP_ENEMY2))
+					if (tmp == EDIT_CHIP_BBL_OUT || (tmp >= EDIT_CHIP_PL && tmp <= EDIT_CHIP_ENEMY2) || tmp == ITEM_CHIP_STONE)
 					{
 						if (lpGameTask.CheckEditMode())
 						{
 							DrawExtendGraph(x * GET_MAP_SIZE(), y * GET_MAP_SIZE(), x * GET_MAP_SIZE() + CHIP_SIZE, y * GET_MAP_SIZE() + CHIP_SIZE, IMAGE_ID("image/Edit_map_Chip2.png")[GET_MAP_ID2(x, y, gp)], true);
 						}
 					}
-					if (tmp == ITEM_CHIP_FLOWER || tmp == ITEM_CHIP_STONE)
+					if (tmp == ITEM_CHIP_FLOWER)
 					{
 						DrawExtendGraph(x * GET_MAP_SIZE(), y * GET_MAP_SIZE(), x * GET_MAP_SIZE() + CHIP_SIZE, y * GET_MAP_SIZE() + CHIP_SIZE, IMAGE_ID("image/Edit_map_Chip2.png")[GET_MAP_ID2(x, y, gp)], true);
 					}

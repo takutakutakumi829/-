@@ -15,6 +15,7 @@ Player::Player(const char(&_keyData)[256], const char(&_keyDataOld)[256], VECTOR
 
 Player::~Player()
 {
+
 }
 
 bool Player::Update(void)
@@ -104,96 +105,99 @@ void Player::SetMove(void)
 	{
 		Obj::animCnt++;
 
-		if (cpTypeR == EDIT_CHIP_WBL || cpTypeR == EDIT_CHIP_BBL05 || cpTypeR == EDIT_CHIP_BBL05_L || CheckChip(PLDir, cpTypeR))
+		if (lpMapCtl.GetMapData(pos + VECTOR2((lpMapCtl.GetChipSize() + 1), (lpMapCtl.GetChipSize() / 2)), LDR_GP_ITEM) == LDR_CHIP_BLANK)
 		{
-			SetAnim("â°ñx");
-			if (pos.x + CHIP_SIZE < CHIP_SIZE * GAME_AREA_CNT_X - 3)
+			if (cpTypeR == EDIT_CHIP_WBL || cpTypeR == EDIT_CHIP_BBL05 || cpTypeR == EDIT_CHIP_BBL05_L || CheckChip(PLDir, cpTypeR))
 			{
+				SetAnim("â°ñx");
+				if (pos.x + CHIP_SIZE < CHIP_SIZE * GAME_AREA_CNT_X - 3)
+				{
 
 
-				if ((posY_BL == 31))
-				{
-					pos.x += speed;
-				}
-				else
-				{
-					PLDirOld = PLDirOldOld;
-					AnimDirChange();
-					Dig();
-					pos.y += speed * (PLDirOldOld == DIR_DOWN ? 1 : -1);
-				}
-
-				if (CheckChip(PLDir, cpTypeC))
-				{
-					lpMapCtl.SetMapData(pos + VECTOR2(lpMapCtl.GetChipSize() / 2, lpMapCtl.GetChipSize() / 2), (cpTypeC >= EDIT_CHIP_BBL75_U && cpTypeC <= EDIT_CHIP_BBL25_U) ? EDIT_CHIP_BBL_BLACK_UM : EDIT_CHIP_BBL_BLACK_U);
-				}
-
-				if (cpTypeLR == EDIT_CHIP_WBL || cpTypeR == EDIT_CHIP_BBL05 || cpTypeR == EDIT_CHIP_BBL05_L || CheckChip(PLDir, cpTypeLR))
-				{
-					lpMapCtl.SetMapData(pos + VECTOR2(lpMapCtl.GetChipSize(), lpMapCtl.GetChipSize() / 2), LDR_CHIP_BLANK);
-				}
-			}
-		}
-		else if (!(cpTypeR >= EDIT_CHIP_BBL && cpTypeR <= EDIT_CHIP_BBL05) && !(cpTypeUR >= EDIT_CHIP_BBL && cpTypeUR <= EDIT_CHIP_BBL05) && !(cpTypeDR >= EDIT_CHIP_BBL && cpTypeDR <= EDIT_CHIP_BBL05))
-		{
-
-			SetAnim("ï‡Ç≠");
-			if (pos.x + CHIP_SIZE < CHIP_SIZE * GAME_AREA_CNT_X - 1)
-			{
-				if ((posY_BL == 31))
-				{
-					pos.x += speed;
-				}
-				else
-				{
-					PLDirOld = PLDirOldOld;
-					AnimDirChange();
-					Dig();
-
-					pos.y += speed * (PLDirOldOld == DIR_DOWN ? 1 : -1);
-				}
-			}
-		}
-		else if (((cpTypeR == EDIT_CHIP_BBL) || (cpTypeR == EDIT_CHIP_BBL75) || (cpTypeR == EDIT_CHIP_BBL50) || (cpTypeR == EDIT_CHIP_BBL25) || (cpTypeR == EDIT_CHIP_BBL05)) && (cpTypeURR != LDR_CHIP_BLANK) && (cpTypeDRR != LDR_CHIP_BLANK))
-		{
-			SetAnim("â°ñx");
-			if (pos.x + CHIP_SIZE < CHIP_SIZE * GAME_AREA_CNT_X - 3)
-			{
-
-				if ((posY_BL == 31))
-				{
-					if ((Obj::animCnt % 20) == 0)
+					if ((posY_BL == 31))
 					{
-						lpGameTask.AddScore(10);
+						pos.x += speed;
 					}
-					pos.x += speed;
+					else
+					{
+						PLDirOld = PLDirOldOld;
+						AnimDirChange();
+						Dig();
+						pos.y += speed * (PLDirOldOld == DIR_DOWN ? 1 : -1);
+					}
+
+					if (CheckChip(PLDir, cpTypeC))
+					{
+						lpMapCtl.SetMapData(pos + VECTOR2(lpMapCtl.GetChipSize() / 2, lpMapCtl.GetChipSize() / 2), (cpTypeC >= EDIT_CHIP_BBL75_U && cpTypeC <= EDIT_CHIP_BBL25_U) ? EDIT_CHIP_BBL_BLACK_UM : EDIT_CHIP_BBL_BLACK_U);
+					}
+
+					if (cpTypeLR == EDIT_CHIP_WBL || cpTypeR == EDIT_CHIP_BBL05 || cpTypeR == EDIT_CHIP_BBL05_L || CheckChip(PLDir, cpTypeLR))
+					{
+						lpMapCtl.SetMapData(pos + VECTOR2(lpMapCtl.GetChipSize(), lpMapCtl.GetChipSize() / 2), LDR_CHIP_BLANK);
+					}
 				}
-				else
+			}
+			else if (!(cpTypeR >= EDIT_CHIP_BBL && cpTypeR <= EDIT_CHIP_BBL05) && !(cpTypeUR >= EDIT_CHIP_BBL && cpTypeUR <= EDIT_CHIP_BBL05) && !(cpTypeDR >= EDIT_CHIP_BBL && cpTypeDR <= EDIT_CHIP_BBL05))
+			{
+
+				SetAnim("ï‡Ç≠");
+				if (pos.x + CHIP_SIZE < CHIP_SIZE * GAME_AREA_CNT_X - 1)
 				{
-					PLDirOld = PLDirOldOld;
-					AnimDirChange();
-					Dig();
+					if ((posY_BL == 31))
+					{
+						pos.x += speed;
+					}
+					else
+					{
+						PLDirOld = PLDirOldOld;
+						AnimDirChange();
+						Dig();
 
-					pos.y += speed * (PLDirOldOld == DIR_DOWN ? 1 : -1);
+						pos.y += speed * (PLDirOldOld == DIR_DOWN ? 1 : -1);
+					}
 				}
+			}
+			else if (((cpTypeR == EDIT_CHIP_BBL) || (cpTypeR == EDIT_CHIP_BBL75) || (cpTypeR == EDIT_CHIP_BBL50) || (cpTypeR == EDIT_CHIP_BBL25) || (cpTypeR == EDIT_CHIP_BBL05)) && (cpTypeURR != LDR_CHIP_BLANK) && (cpTypeDRR != LDR_CHIP_BLANK))
+			{
+				SetAnim("â°ñx");
+				if (pos.x + CHIP_SIZE < CHIP_SIZE * GAME_AREA_CNT_X - 3)
+				{
+
+					if ((posY_BL == 31))
+					{
+						if ((Obj::animCnt % 20) == 0)
+						{
+							lpGameTask.AddScore(10);
+						}
+						pos.x += speed;
+					}
+					else
+					{
+						PLDirOld = PLDirOldOld;
+						AnimDirChange();
+						Dig();
+
+						pos.y += speed * (PLDirOldOld == DIR_DOWN ? 1 : -1);
+					}
 
 
+				}
 			}
-		}
-		else if (cpTypeDRR == LDR_CHIP_BLANK)
-		{
-			SetAnim("â∫ç~");
-			if (pos.y < CHIP_SIZE * 14 - 1)
+			else if (cpTypeDRR == LDR_CHIP_BLANK)
 			{
-				pos.y += speed;
+				SetAnim("â∫ç~");
+				if (pos.y < CHIP_SIZE * 14 - 1)
+				{
+					pos.y += speed;
+				}
 			}
-		}
-		else if (cpTypeURR == LDR_CHIP_BLANK)
-		{
-			SetAnim("è„è∏");
-			if (pos.y >= CHIP_SIZE * 2 - 4)
+			else if (cpTypeURR == LDR_CHIP_BLANK)
 			{
-				pos.y -= speed;
+				SetAnim("è„è∏");
+				if (pos.y >= CHIP_SIZE * 2 - 4)
+				{
+					pos.y -= speed;
+				}
 			}
 		}
 
@@ -214,98 +218,101 @@ void Player::SetMove(void)
 	{
 		Obj::animCnt++;
 
-		if (cpTypeL == EDIT_CHIP_WBL || cpTypeL == EDIT_CHIP_BBL05 || cpTypeL == EDIT_CHIP_BBL05_L || CheckChip(PLDir, cpTypeL))
+		if (lpMapCtl.GetMapData(pos + VECTOR2(-1, (lpMapCtl.GetChipSize() / 2)), LDR_GP_ITEM) == LDR_CHIP_BLANK)
 		{
-			SetAnim("â°ñx");
-			if (pos.x >= CHIP_SIZE)
+			if (cpTypeL == EDIT_CHIP_WBL || cpTypeL == EDIT_CHIP_BBL05 || cpTypeL == EDIT_CHIP_BBL05_L || CheckChip(PLDir, cpTypeL))
 			{
-				if ((posY_BL == 31))
+				SetAnim("â°ñx");
+				if (pos.x >= CHIP_SIZE)
 				{
-					pos.x -= speed;
-				}
-				else
-				{
-					PLDirOld = PLDirOldOld;
-					AnimDirChange();
-					Dig();
-					pos.y += speed * (PLDirOldOld == DIR_DOWN ? 1 : -1);
-				}
-
-				if (CheckChip(PLDir, cpTypeC))
-				{
-					lpMapCtl.SetMapData(pos + VECTOR2(lpMapCtl.GetChipSize() / 2, lpMapCtl.GetChipSize() / 2), (cpTypeC >= EDIT_CHIP_BBL75_U && cpTypeC <= EDIT_CHIP_BBL25_U) ? EDIT_CHIP_BBL_BLACK_DM : EDIT_CHIP_BBL_BLACK_D);
-				}
-
-				if (cpTypeRL == EDIT_CHIP_WBL || cpTypeL == EDIT_CHIP_BBL05 || cpTypeL == EDIT_CHIP_BBL05_L || CheckChip(PLDir, cpTypeRL))
-				{
-					lpMapCtl.SetMapData(pos + VECTOR2(1, lpMapCtl.GetChipSize() / 2), LDR_CHIP_BLANK);
-				}
-			}
-
-		}
-		else if ((cpTypeL != EDIT_CHIP_BBL && cpTypeUL != EDIT_CHIP_BBL && cpTypeDL != EDIT_CHIP_BBL) && !(cpTypeL >= EDIT_CHIP_BBL75_L && cpTypeL <= EDIT_CHIP_BBL05_L) && !(cpTypeUL >= EDIT_CHIP_BBL75_L && cpTypeUL <= EDIT_CHIP_BBL05_L) && !(cpTypeDL >= EDIT_CHIP_BBL75_L && cpTypeDL <= EDIT_CHIP_BBL05_L))
-		{
-
-			SetAnim("ï‡Ç≠");
-			if (pos.x >= CHIP_SIZE)
-			{
-				if ((posY_BL == 31))
-				{
-					pos.x -= speed;
-				}
-				else
-				{
-					PLDirOld = PLDirOldOld;
-					AnimDirChange();
-					Dig();
-					pos.y += speed * (PLDirOldOld == DIR_DOWN ? 1 : -1);
-				}
-			}
-		}
-		else if (((cpTypeL == EDIT_CHIP_BBL) || (cpTypeL == EDIT_CHIP_BBL75_L) || (cpTypeL == EDIT_CHIP_BBL50_L) || (cpTypeL == EDIT_CHIP_BBL25_L) || (cpTypeL == EDIT_CHIP_BBL05_L)) && (cpTypeULL != LDR_CHIP_BLANK) && (cpTypeDLL != LDR_CHIP_BLANK))
-		{
-			SetAnim("â°ñx");
-			if (pos.x >= CHIP_SIZE)
-			{
-
-				if ((posY_BL == 31))
-				{
-					if ((Obj::animCnt % 20) == 0)
+					if ((posY_BL == 31))
 					{
-						lpGameTask.AddScore(10);
+						pos.x -= speed;
 					}
-					pos.x -= speed;
+					else
+					{
+						PLDirOld = PLDirOldOld;
+						AnimDirChange();
+						Dig();
+						pos.y += speed * (PLDirOldOld == DIR_DOWN ? 1 : -1);
+					}
+
+					if (CheckChip(PLDir, cpTypeC))
+					{
+						lpMapCtl.SetMapData(pos + VECTOR2(lpMapCtl.GetChipSize() / 2, lpMapCtl.GetChipSize() / 2), (cpTypeC >= EDIT_CHIP_BBL75_U && cpTypeC <= EDIT_CHIP_BBL25_U) ? EDIT_CHIP_BBL_BLACK_DM : EDIT_CHIP_BBL_BLACK_D);
+					}
+
+					if (cpTypeRL == EDIT_CHIP_WBL || cpTypeL == EDIT_CHIP_BBL05 || cpTypeL == EDIT_CHIP_BBL05_L || CheckChip(PLDir, cpTypeRL))
+					{
+						lpMapCtl.SetMapData(pos + VECTOR2(1, lpMapCtl.GetChipSize() / 2), LDR_CHIP_BLANK);
+					}
 				}
-				else
+
+			}
+			else if ((cpTypeL != EDIT_CHIP_BBL && cpTypeUL != EDIT_CHIP_BBL && cpTypeDL != EDIT_CHIP_BBL) && !(cpTypeL >= EDIT_CHIP_BBL75_L && cpTypeL <= EDIT_CHIP_BBL05_L) && !(cpTypeUL >= EDIT_CHIP_BBL75_L && cpTypeUL <= EDIT_CHIP_BBL05_L) && !(cpTypeDL >= EDIT_CHIP_BBL75_L && cpTypeDL <= EDIT_CHIP_BBL05_L))
+			{
+
+				SetAnim("ï‡Ç≠");
+				if (pos.x >= CHIP_SIZE)
 				{
-					PLDirOld = PLDirOldOld;
-					AnimDirChange();
-					Dig();
-					pos.y += speed * (PLDirOldOld == DIR_DOWN ? 1 : -1);
+					if ((posY_BL == 31))
+					{
+						pos.x -= speed;
+					}
+					else
+					{
+						PLDirOld = PLDirOldOld;
+						AnimDirChange();
+						Dig();
+						pos.y += speed * (PLDirOldOld == DIR_DOWN ? 1 : -1);
+					}
 				}
-
-
 			}
-		}
-		else if (cpTypeDLL == LDR_CHIP_BLANK)
-		{
-			SetAnim("â∫ç~");
-			if (pos.y < CHIP_SIZE * 14 - 2)
+			else if (((cpTypeL == EDIT_CHIP_BBL) || (cpTypeL == EDIT_CHIP_BBL75_L) || (cpTypeL == EDIT_CHIP_BBL50_L) || (cpTypeL == EDIT_CHIP_BBL25_L) || (cpTypeL == EDIT_CHIP_BBL05_L)) && (cpTypeULL != LDR_CHIP_BLANK) && (cpTypeDLL != LDR_CHIP_BLANK))
 			{
-				Dir = DIR_DOWN;
-				Dig();
+				SetAnim("â°ñx");
+				if (pos.x >= CHIP_SIZE)
+				{
 
-				pos.y += speed;
+					if ((posY_BL == 31))
+					{
+						if ((Obj::animCnt % 20) == 0)
+						{
+							lpGameTask.AddScore(10);
+						}
+						pos.x -= speed;
+					}
+					else
+					{
+						PLDirOld = PLDirOldOld;
+						AnimDirChange();
+						Dig();
+						pos.y += speed * (PLDirOldOld == DIR_DOWN ? 1 : -1);
+					}
+
+
+				}
 			}
-		}
-		else if (cpTypeULL == LDR_CHIP_BLANK)
-		{
-			SetAnim("è„è∏");
-			if (pos.y >= CHIP_SIZE * 2 - 4)
+			else if (cpTypeDLL == LDR_CHIP_BLANK)
 			{
-				Dir = DIR_UP;
-				Dig();
-				pos.y -= speed;
+				SetAnim("â∫ç~");
+				if (pos.y < CHIP_SIZE * 14 - 2)
+				{
+					Dir = DIR_DOWN;
+					Dig();
+
+					pos.y += speed;
+				}
+			}
+			else if (cpTypeULL == LDR_CHIP_BLANK)
+			{
+				SetAnim("è„è∏");
+				if (pos.y >= CHIP_SIZE * 2 - 4)
+				{
+					Dir = DIR_UP;
+					Dig();
+					pos.y -= speed;
+				}
 			}
 		}
 
@@ -325,103 +332,106 @@ void Player::SetMove(void)
 	{
 		Obj::animCnt++;
 
-		if (cpTypeU == EDIT_CHIP_UBL || cpTypeU == EDIT_CHIP_BBL05_U || cpTypeU == EDIT_CHIP_BBL05_D || CheckChip(PLDir, cpTypeU))
+		if (lpMapCtl.GetMapData(pos + VECTOR2((lpMapCtl.GetChipSize() / 2), -1), LDR_GP_ITEM) == LDR_CHIP_BLANK)
 		{
-			SetAnim("è„å@");
-			Dig();
-
-			if (pos.y >= CHIP_SIZE * 2 - 4)
+			if (cpTypeU == EDIT_CHIP_UBL || cpTypeU == EDIT_CHIP_BBL05_U || cpTypeU == EDIT_CHIP_BBL05_D || CheckChip(PLDir, cpTypeU))
 			{
-				if ((posX_BL == 31))
-				{
-					pos.y -= speed;
-				}
-				else
-				{
-					PLDirOld = PLDirOldOld;
-					AnimDirChange();
-					Dig();
-					pos.x += speed * (PLDirOldOld == DIR_RIGHT ? 1 : -1);
-				}
+				SetAnim("è„å@");
+				Dig();
 
-				if (CheckChip(PLDir, cpTypeC))
+				if (pos.y >= CHIP_SIZE * 2 - 4)
 				{
-					lpMapCtl.SetMapData(pos + VECTOR2(lpMapCtl.GetChipSize() / 2, lpMapCtl.GetChipSize() / 2), (cpTypeC >= EDIT_CHIP_BBL75_L && cpTypeC <= EDIT_CHIP_BBL25_L) ? EDIT_CHIP_BBL_BLACK_LM : EDIT_CHIP_BBL_BLACK_RM);
-				}
-
-				if (cpTypeDU == EDIT_CHIP_UBL || cpTypeU == EDIT_CHIP_BBL05_U || cpTypeU == EDIT_CHIP_BBL05_D || CheckChip(PLDir, cpTypeDU))
-				{
-					lpMapCtl.SetMapData(pos + VECTOR2(lpMapCtl.GetChipSize() / 2, 0), LDR_CHIP_BLANK);
-				}
-			}
-		}
-		else if ((cpTypeU != EDIT_CHIP_BBL && cpTypeUL != EDIT_CHIP_BBL && cpTypeUR != EDIT_CHIP_BBL) && !(cpTypeU >= EDIT_CHIP_BBL75_U && cpTypeU <= EDIT_CHIP_BBL05_U) && !(cpTypeUR >= EDIT_CHIP_BBL75_U && cpTypeUR <= EDIT_CHIP_BBL05_U) && !(cpTypeUL >= EDIT_CHIP_BBL75_U && cpTypeUL <= EDIT_CHIP_BBL05_U))
-		{
-
-			SetAnim("è„è∏");
-			if (pos.y >= CHIP_SIZE * 2)
-			{
-				if ((posX_BL == 31))
-				{
-					pos.y -= speed;
-				}
-				else
-				{
-					PLDirOld = PLDirOldOld;
-					AnimDirChange();
-					Dig();
-					pos.x += speed * (PLDirOldOld == DIR_RIGHT ? 1 : -1);
-				}
-
-				if (cpTypeU == EDIT_CHIP_BBL05_U)
-				{
-					int x = 0;
-				}
-
-			}
-
-		}
-		else if (((cpTypeU == EDIT_CHIP_BBL) || (cpTypeU == EDIT_CHIP_BBL75_U) || (cpTypeU == EDIT_CHIP_BBL50_U) || (cpTypeU == EDIT_CHIP_BBL25_U) || (cpTypeU == EDIT_CHIP_BBL05_U)) && (cpTypeULU != LDR_CHIP_BLANK) && (cpTypeURU != LDR_CHIP_BLANK))
-		{
-			SetAnim("è„å@");
-			Dig();
-
-			if (pos.y >= CHIP_SIZE * 2 - 4)
-			{
-
-				if ((posX_BL == 31))
-				{
-					if ((Obj::animCnt % 20) == 0)
+					if ((posX_BL == 31))
 					{
-						lpGameTask.AddScore(10);
+						pos.y -= speed;
 					}
-					pos.y -= speed;
+					else
+					{
+						PLDirOld = PLDirOldOld;
+						AnimDirChange();
+						Dig();
+						pos.x += speed * (PLDirOldOld == DIR_RIGHT ? 1 : -1);
+					}
+
+					if (CheckChip(PLDir, cpTypeC))
+					{
+						lpMapCtl.SetMapData(pos + VECTOR2(lpMapCtl.GetChipSize() / 2, lpMapCtl.GetChipSize() / 2), (cpTypeC >= EDIT_CHIP_BBL75_L && cpTypeC <= EDIT_CHIP_BBL25_L) ? EDIT_CHIP_BBL_BLACK_LM : EDIT_CHIP_BBL_BLACK_RM);
+					}
+
+					if (cpTypeDU == EDIT_CHIP_UBL || cpTypeU == EDIT_CHIP_BBL05_U || cpTypeU == EDIT_CHIP_BBL05_D || CheckChip(PLDir, cpTypeDU))
+					{
+						lpMapCtl.SetMapData(pos + VECTOR2(lpMapCtl.GetChipSize() / 2, 0), LDR_CHIP_BLANK);
+					}
 				}
-				else
+			}
+			else if ((cpTypeU != EDIT_CHIP_BBL && cpTypeUL != EDIT_CHIP_BBL && cpTypeUR != EDIT_CHIP_BBL) && !(cpTypeU >= EDIT_CHIP_BBL75_U && cpTypeU <= EDIT_CHIP_BBL05_U) && !(cpTypeUR >= EDIT_CHIP_BBL75_U && cpTypeUR <= EDIT_CHIP_BBL05_U) && !(cpTypeUL >= EDIT_CHIP_BBL75_U && cpTypeUL <= EDIT_CHIP_BBL05_U))
+			{
+
+				SetAnim("è„è∏");
+				if (pos.y >= CHIP_SIZE * 2)
 				{
-					PLDirOld = PLDirOldOld;
-					AnimDirChange();
-					pos.x += speed * (PLDirOldOld == DIR_RIGHT ? 1 : -1);
+					if ((posX_BL == 31))
+					{
+						pos.y -= speed;
+					}
+					else
+					{
+						PLDirOld = PLDirOldOld;
+						AnimDirChange();
+						Dig();
+						pos.x += speed * (PLDirOldOld == DIR_RIGHT ? 1 : -1);
+					}
+
+					if (cpTypeU == EDIT_CHIP_BBL05_U)
+					{
+						int x = 0;
+					}
+
 				}
 
 			}
+			else if (((cpTypeU == EDIT_CHIP_BBL) || (cpTypeU == EDIT_CHIP_BBL75_U) || (cpTypeU == EDIT_CHIP_BBL50_U) || (cpTypeU == EDIT_CHIP_BBL25_U) || (cpTypeU == EDIT_CHIP_BBL05_U)) && (cpTypeULU != LDR_CHIP_BLANK) && (cpTypeURU != LDR_CHIP_BLANK))
+			{
+				SetAnim("è„å@");
+				Dig();
 
-		}
-		else if (cpTypeULU == LDR_CHIP_BLANK)
-		{
-			Dir = DIR_LEFT;
-			SetAnim("â°ñx");
-			pos.x -= speed;
-			Dig();
+				if (pos.y >= CHIP_SIZE * 2 - 4)
+				{
 
-		}
-		else if (cpTypeURU == LDR_CHIP_BLANK)
-		{
-			Dir = DIR_RIGHT;
-			SetAnim("â°ñx");
-			pos.x += speed;
-			Dig();
+					if ((posX_BL == 31))
+					{
+						if ((Obj::animCnt % 20) == 0)
+						{
+							lpGameTask.AddScore(10);
+						}
+						pos.y -= speed;
+					}
+					else
+					{
+						PLDirOld = PLDirOldOld;
+						AnimDirChange();
+						pos.x += speed * (PLDirOldOld == DIR_RIGHT ? 1 : -1);
+					}
 
+				}
+
+			}
+			else if (cpTypeULU == LDR_CHIP_BLANK)
+			{
+				Dir = DIR_LEFT;
+				SetAnim("â°ñx");
+				pos.x -= speed;
+				Dig();
+
+			}
+			else if (cpTypeURU == LDR_CHIP_BLANK)
+			{
+				Dir = DIR_RIGHT;
+				SetAnim("â°ñx");
+				pos.x += speed;
+				Dig();
+
+			}
 		}
 
 
@@ -440,108 +450,116 @@ void Player::SetMove(void)
 	{
 		Obj::animCnt++;
 
-		if (cpTypeD == EDIT_CHIP_UBL || cpTypeD == EDIT_CHIP_BBL05_U || cpTypeD == EDIT_CHIP_BBL05_D || CheckChip(PLDir,cpTypeD))
-		{
-			SetAnim("â∫ñx");
-			if (pos.y <= CHIP_SIZE * 14 - 2)
-			{
-				if ((posX_BL == 31))
-				{
-					pos.y += speed;
-				}
-				else
-				{
-					PLDirOld = PLDirOldOld;
-					AnimDirChange();
-					Dig();
-					pos.x += speed * (PLDirOldOld == DIR_RIGHT ? 1 : -1);
-				}
-
-				if (CheckChip(PLDir, cpTypeC))
-				{
-					lpMapCtl.SetMapData(pos + VECTOR2(lpMapCtl.GetChipSize() / 2, lpMapCtl.GetChipSize() / 2), (cpTypeC >= EDIT_CHIP_BBL75_L && cpTypeC <= EDIT_CHIP_BBL25_L) ? EDIT_CHIP_BBL_BLACK_L : EDIT_CHIP_BBL_BLACK_R);
-				}
-
-				if (cpTypeUD == EDIT_CHIP_UBL || cpTypeD == EDIT_CHIP_BBL05_U || cpTypeD == EDIT_CHIP_BBL05_D || CheckChip(PLDir, cpTypeUD))
-				{
-					lpMapCtl.SetMapData(pos + VECTOR2(lpMapCtl.GetChipSize() / 2, lpMapCtl.GetChipSize()), LDR_CHIP_BLANK);
-				}
-
-			}
-			Dig();
-
-		}
-		else if ((cpTypeD != EDIT_CHIP_BBL && cpTypeDL != EDIT_CHIP_BBL && cpTypeDR != EDIT_CHIP_BBL) && !(cpTypeD >= EDIT_CHIP_BBL75_D && cpTypeD <= EDIT_CHIP_BBL05_D) && !(cpTypeDR >= EDIT_CHIP_BBL75_D && cpTypeDR <= EDIT_CHIP_BBL05_D) && !(cpTypeDL >= EDIT_CHIP_BBL75_D && cpTypeDL <= EDIT_CHIP_BBL05_D))
+		if (lpMapCtl.GetMapData(pos + VECTOR2((lpMapCtl.GetChipSize() / 2), lpMapCtl.GetChipSize() + 1), LDR_GP_ITEM) == LDR_CHIP_BLANK)
 		{
 
-			SetAnim("â∫ç~");
-			if (pos.y <= CHIP_SIZE * 14 - 2)
+			if (cpTypeD == EDIT_CHIP_UBL || cpTypeD == EDIT_CHIP_BBL05_U || cpTypeD == EDIT_CHIP_BBL05_D || CheckChip(PLDir, cpTypeD))
 			{
-				if ((posX_BL == 31))
+				SetAnim("â∫ñx");
+				if (pos.y <= CHIP_SIZE * 14 - 2)
 				{
-					pos.y += speed;
-				}
-				else
-				{
-					PLDirOld = PLDirOldOld;
-					AnimDirChange();
-					Dig();
-					pos.x += speed * (PLDirOldOld == DIR_RIGHT ? 1 : -1);
-				}
-			}
-		}
-		else if (((cpTypeD == EDIT_CHIP_BBL) || (cpTypeD == EDIT_CHIP_BBL75_D) || (cpTypeD == EDIT_CHIP_BBL50_D) || (cpTypeD == EDIT_CHIP_BBL25_D) || (cpTypeD == EDIT_CHIP_BBL05_D)) && (cpTypeDLD != LDR_CHIP_BLANK) && (cpTypeDRD != LDR_CHIP_BLANK))
-		{
-			SetAnim("â∫ñx");
-			if (pos.y <= CHIP_SIZE * 14 - 2)
-			{
-
-				if ((posX_BL == 31))
-				{
-					if ((Obj::animCnt % 20) == 0)
+					if ((posX_BL == 31))
 					{
-						lpGameTask.AddScore(10);
+						pos.y += speed;
 					}
-					pos.y += speed;
+					else
+					{
+						PLDirOld = PLDirOldOld;
+						AnimDirChange();
+						Dig();
+						pos.x += speed * (PLDirOldOld == DIR_RIGHT ? 1 : -1);
+					}
+
+					if (CheckChip(PLDir, cpTypeC))
+					{
+						lpMapCtl.SetMapData(pos + VECTOR2(lpMapCtl.GetChipSize() / 2, lpMapCtl.GetChipSize() / 2), (cpTypeC >= EDIT_CHIP_BBL75_L && cpTypeC <= EDIT_CHIP_BBL25_L) ? EDIT_CHIP_BBL_BLACK_L : EDIT_CHIP_BBL_BLACK_R);
+					}
+
+					if (cpTypeUD == EDIT_CHIP_UBL || cpTypeD == EDIT_CHIP_BBL05_U || cpTypeD == EDIT_CHIP_BBL05_D || CheckChip(PLDir, cpTypeUD))
+					{
+						lpMapCtl.SetMapData(pos + VECTOR2(lpMapCtl.GetChipSize() / 2, lpMapCtl.GetChipSize()), LDR_CHIP_BLANK);
+					}
+
 				}
-				else
+				Dig();
+
+			}
+			else if ((cpTypeD != EDIT_CHIP_BBL && cpTypeDL != EDIT_CHIP_BBL && cpTypeDR != EDIT_CHIP_BBL) && !(cpTypeD >= EDIT_CHIP_BBL75_D && cpTypeD <= EDIT_CHIP_BBL05_D) && !(cpTypeDR >= EDIT_CHIP_BBL75_D && cpTypeDR <= EDIT_CHIP_BBL05_D) && !(cpTypeDL >= EDIT_CHIP_BBL75_D && cpTypeDL <= EDIT_CHIP_BBL05_D))
+			{
+
+				SetAnim("â∫ç~");
+				if (pos.y <= CHIP_SIZE * 14 - 2)
 				{
-					PLDirOld = PLDirOldOld;
-					AnimDirChange();
-					pos.x += speed * (PLDirOldOld == DIR_RIGHT ? 1 : -1);
+					if ((posX_BL == 31))
+					{
+						pos.y += speed;
+					}
+					else
+					{
+						PLDirOld = PLDirOldOld;
+						AnimDirChange();
+						Dig();
+						pos.x += speed * (PLDirOldOld == DIR_RIGHT ? 1 : -1);
+					}
 				}
-
 			}
-			Dig();
-
-		}
-		else if (cpTypeDLD == LDR_CHIP_BLANK)
-		{
-			if (pos.y <= CHIP_SIZE * 14 - 2)
+			else if (((cpTypeD == EDIT_CHIP_BBL) || (cpTypeD == EDIT_CHIP_BBL75_D) || (cpTypeD == EDIT_CHIP_BBL50_D) || (cpTypeD == EDIT_CHIP_BBL25_D) || (cpTypeD == EDIT_CHIP_BBL05_D)) && (cpTypeDLD != LDR_CHIP_BLANK) && (cpTypeDRD != LDR_CHIP_BLANK))
 			{
-				Dir = DIR_LEFT;
-				SetAnim("â°ñx");
-				pos.x -= speed;
-			}
-			Dig();
+				SetAnim("â∫ñx");
+				if (pos.y <= CHIP_SIZE * 14 - 2)
+				{
 
-		}
-		else if (cpTypeDRD == LDR_CHIP_BLANK)
-		{
-			if (pos.y <= CHIP_SIZE * 14 - 2)
+					if ((posX_BL == 31))
+					{
+						if ((Obj::animCnt % 20) == 0)
+						{
+							lpGameTask.AddScore(10);
+						}
+						pos.y += speed;
+					}
+					else
+					{
+						PLDirOld = PLDirOldOld;
+						AnimDirChange();
+						pos.x += speed * (PLDirOldOld == DIR_RIGHT ? 1 : -1);
+					}
+
+				}
+				Dig();
+
+			}
+			else if (cpTypeDLD == LDR_CHIP_BLANK)
 			{
-				Dir = DIR_RIGHT;
-				SetAnim("â°ñx");
-				pos.x += speed;
-			}
-			Dig();
+				if (pos.y <= CHIP_SIZE * 14 - 2)
+				{
+					Dir = DIR_LEFT;
+					SetAnim("â°ñx");
+					pos.x -= speed;
+				}
+				Dig();
 
+			}
+			else if (cpTypeDRD == LDR_CHIP_BLANK)
+			{
+				if (pos.y <= CHIP_SIZE * 14 - 2)
+				{
+					Dir = DIR_RIGHT;
+					SetAnim("â°ñx");
+					pos.x += speed;
+				}
+				Dig();
+
+			}
 		}
 
 		// ïsóvÇ»œØÃﬂèÓïÒÇÃÿæØƒ
 		changeBlack(VECTOR2((lpMapCtl.GetChipSize() / 2), (lpMapCtl.GetChipSize() / 2)), LDR_GP_SD, EDIT_CHIP_BBL_BLACK_D);
 		changeBlack(VECTOR2((lpMapCtl.GetChipSize() / 2), (lpMapCtl.GetChipSize() / 2)), LDR_GP_SD, EDIT_CHIP_BBL_BLACK_U);
 
+	}
+	if (lpMapCtl.GetMapData(pos + VECTOR2((lpMapCtl.GetChipSize() / 2), -1), LDR_GP_ITEM) == ITEM_CHIP_STONE)
+	{
+		lpGameTask.SetCheckStone(pos / CHIP_SIZE);
 	}
 
 }

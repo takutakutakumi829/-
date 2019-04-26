@@ -27,6 +27,7 @@
     <ClCompile Include="MapCtl.cpp" />
     <ClCompile Include="Obj.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Stone.cpp" />
     <ClCompile Include="VECTOR2.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -37,13 +38,14 @@
     <ClInclude Include="MapCtl.h" />
     <ClInclude Include="Obj.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Stone.h" />
     <ClInclude Include="VECTOR2.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{03E1DC36-0EC9-451C-900F-74C2260DE31E}</ProjectGuid>
     <RootNamespace>Project1</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
