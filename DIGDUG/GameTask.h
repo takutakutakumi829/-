@@ -9,9 +9,8 @@
 
 typedef std::shared_ptr<Obj> obj_ptr;
 typedef std::list<obj_ptr> obj_List;
-#define lpGameTask GameTask::GetInstance()
-//#define SCREEN_SIZE_X (600)
-//#define SCREEN_SIZE_Y (500)//600
+
+//#define lpGameTask GameTask::GetInstance()
 
 constexpr unsigned int SCREEN_SIZE_X = 600;
 constexpr unsigned int SCREEN_SIZE_Y = 500;

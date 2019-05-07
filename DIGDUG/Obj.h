@@ -56,6 +56,7 @@ public:
 
 
 	void Draw(int id);
+	void Draw(double angle);
 	const VECTOR2& GetSize(void);
 	void SetSize(const VECTOR2& divSize);
 	bool SetPos(VECTOR2 pos);

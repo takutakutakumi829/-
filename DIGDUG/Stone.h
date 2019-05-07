@@ -9,6 +9,7 @@ public:
 	~Stone();
 
 	bool Update(void);
+	void Draw(void);
 
 private:
 	void SetMove(void);
@@ -16,6 +17,8 @@ private:
 	bool InitAnim(void);
 
 	bool checkPlayer = false;
+
+	double Angle = 0;
 
 	int DownTime = 0;
 	int stone[2] = { 0 };

@@ -220,7 +220,7 @@ void MapCtl::MapDraw(void)
 					}
 					if (tmp == EDIT_CHIP_BBL_OUT || (tmp >= EDIT_CHIP_PL && tmp <= EDIT_CHIP_ENEMY2) || tmp == ITEM_CHIP_STONE)
 					{
-						if (lpGameTask.CheckEditMode())
+						if (GameTask::GetInstance().CheckEditMode())
 						{
 							DrawExtendGraph(x * GET_MAP_SIZE(), y * GET_MAP_SIZE(), x * GET_MAP_SIZE() + CHIP_SIZE, y * GET_MAP_SIZE() + CHIP_SIZE, IMAGE_ID("image/Edit_map_Chip2.png")[GET_MAP_ID2(x, y, gp)], true);
 						}
@@ -257,9 +257,9 @@ void MapCtl::MapDraw(void)
 		}
 	}
 
-	if (lpGameTask.CheckEditMode())
+	if (GameTask::GetInstance().CheckEditMode())
 	{
-		VECTOR2 tmp1 = lpGameTask.GetOffset();
+		VECTOR2 tmp1 = GameTask::GetInstance().GetOffset();
 		VECTOR2 tmp2(0, 0);
 		for (; tmp1.x <= (CHIP_SIZE * 13); tmp1.x += CHIP_SIZE)
 		{
@@ -267,7 +267,7 @@ void MapCtl::MapDraw(void)
 			DrawLine(tmp1, tmp2, 0xffffff);
 		}
 
-		tmp1 = lpGameTask.GetOffset();
+		tmp1 = GameTask::GetInstance().GetOffset();
 		for (; tmp1.y <= (CHIP_SIZE * 15); tmp1.y += CHIP_SIZE)
 		{
 			tmp2 = VECTOR2((CHIP_SIZE * 13), tmp1.y);
@@ -338,6 +338,7 @@ MapCtl::MapCtl()
 	// ±²ÃÑŒn“
 	chipGrp[ITEM_CHIP_FLOWER] = LDR_GP_ITEM;
 	chipGrp[ITEM_CHIP_STONE] = LDR_GP_ITEM;
+	chipGrp[ITEM_CHIP_BLANK] = LDR_GP_ITEM;
 
 	// ·¬×¸À°Œn“
 	chipGrp[EDIT_CHIP_PL] = LDR_GP_CHAR;
