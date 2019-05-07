@@ -234,14 +234,6 @@ int GameTask::GameMain(void)
 	// Œ»Ý‚Ì“¾“_
 	DrawFormatString(CHIP_SIZE * GAME_AREA_CNT_X, CHIP_SIZE * 5, GetColor(255, 255, 255), "@1UP\n@%d ", One_UP);
 
-	/*DrawFormatString(50, 40, GetColor(255, 255, 255), "UŒ‚À•WX %d ", (*enemy2)->GetAttackPos().x);
-	DrawFormatString(50, 60, GetColor(255, 255, 255), "UŒ‚À•WY %d ", (*enemy2)->GetAttackPos().y);*/
-
-	/*DrawFormatString(150, 40, GetColor(255, 255, 255), "“GÀ•WX@%d", ((*enemy2)->GetPos().x + 2) / CHIP_SIZE);
-	DrawFormatString(150, 60, GetColor(255, 255, 255), "“GÀ•WY@%d", ((*enemy2)->GetPos().y  + 2)/ CHIP_SIZE);
-
-	DrawFormatString(10, 40, GetColor(255, 255, 255), "UŒ‚À•WX@%d", (*player)->GetAttackPos().x);
-	DrawFormatString(10, 60, GetColor(255, 255, 255), "UŒ‚À•WY@%d", (*player)->GetAttackPos().y);*/
 
 	for (auto itr : objList)
 	{
@@ -308,7 +300,6 @@ int GameTask::GameMain(void)
 		}
 	}
 
-	//DrawString(0, 0, "Main", GetColor(255, 255, 255));
 	DrawFormatString(CHIP_SIZE * GAME_AREA_CNT_X, CHIP_SIZE * GAME_AREA_CNT_Y - (CHIP_SIZE * 2), GetColor(255, 255, 255), "ROUND \n@ %d ", StageCnt);
 	
 
@@ -348,8 +339,6 @@ int GameTask::GameMain(void)
 	}
 	
 
-	/*DrawFormatString(150, 10, GetColor(255, 255, 255), "“G”@%d", enemyCnt);
-	DrawFormatString(220, 10, GetColor(255, 255, 255), "ŠK‘w@%d", StageCnt);*/
 	ScreenFlip();
 	return true;
 }
@@ -419,7 +408,6 @@ int GameTask::EditMain(void)
 		itr->Draw();
 	}
 
-	//DrawString(0, 0, "Edit",GetColor(255, 255, 255));
 
 	ScreenFlip();
 	return true;
@@ -439,7 +427,6 @@ int GameTask::Result(void)
 	DrawString((SCREEN_SIZE_X / 2) / 2, 350, "‚f‚`‚l‚d‚n‚u‚d‚q", GetColor(255, 255, 255));
 
 
-	//DrawString(0, 0, "Result", GetColor(255, 255, 255));
 
 	ScreenFlip();
 	return true;

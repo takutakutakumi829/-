@@ -119,6 +119,18 @@ void Obj::Draw(int id)
 
 }
 
+void Obj::Draw(double angle)
+{
+	int id = chipOffset.x + chipOffset.y*divCnt.x;
+
+	if (imageName.length() == 0 || IMAGE_ID(imageName).size() <= id)
+	{
+		return;
+	}
+	DrawRotaGraph(pos.x + CHIP_SIZE / 2, pos.y + CHIP_SIZE / 2, 2, angle, IMAGE_ID(imageName)[id], true);
+
+}
+
 const VECTOR2 & Obj::GetSize(void)
 {
 	return this->divSize;

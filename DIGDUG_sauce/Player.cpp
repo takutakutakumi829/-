@@ -20,21 +20,18 @@ Player::~Player()
 
 bool Player::Update(void)
 {
-	//DrawFormatString(50, 10, GetColor(255, 255, 255), "time %d ", animCnt);
-	//DrawFormatString(CHIP_SIZE * GAME_AREA_CNT_X, CHIP_SIZE * 2, GetColor(255, 255, 255), "HIGH-\n SCORE \nÅ@ %d ", OneUp);
-	/*DrawFormatString(300, 10, GetColor(255, 255, 255), " %d ", pos.x / CHIP_SIZE);
-	DrawFormatString(300, 40, GetColor(255, 255, 255), " %d ", pos.y / CHIP_SIZE);*/
+
 	if (BeatenFlag == true)
 	{
 		Beaten(0);
 	}
 	else
 	{
-		if (lpGameTask.GetClearCnt() <= 0)
+		if (GameTask::GetInstance().GetClearCnt() <= 0)
 		{
 			if (!IKARIflag)
 			{
-				(!(lpGameTask.GameStartFlag) ? StartAnim() : CheckKey());
+				(!(GameTask::GetInstance().GameStartFlag) ? StartAnim() : CheckKey());
 
 				SetMapCheck();
 
@@ -45,7 +42,7 @@ bool Player::Update(void)
 			SetAttack();
 		}
 	}
-	PlayerLife = lpGameTask.PlayerLife;
+	PlayerLife = GameTask::GetInstance().PlayerLife;
 	for (int life = 0; life < PlayerLife; life++)
 	{
 		LifeDraw(life);
@@ -81,14 +78,6 @@ void Player::SetMove(void)
 	posX_BL = (pos.x % CHIP_SIZE);
 	posY_BL = (pos.y % CHIP_SIZE);
 
-
-	/*DrawFormatString(300, 10, GetColor(255, 255, 255), " %d ", posX_BL);
-	DrawFormatString(300, 40, GetColor(255, 255, 255), " %d ", posY_BL);*/
-
-	/*DrawFormatString(400, 70, GetColor(255, 255, 255), " %d ", PLDirOldOld);
-	DrawFormatString(400, 40, GetColor(255, 255, 255), " %d ", PLDirOld);
-	DrawFormatString(400, 10, GetColor(255, 255, 255), " %d ", PLDir);*/
-
 	auto changeBlack = [&](const VECTOR2 tmpPos, const CHIP_GRP grpType, const CHIP_TYPE type){
 
 		if (lpMapCtl.GetMapData(pos + tmpPos, grpType) == type)
@@ -105,7 +94,8 @@ void Player::SetMove(void)
 	{
 		Obj::animCnt++;
 
-		if (lpMapCtl.GetMapData(pos + VECTOR2((lpMapCtl.GetChipSize() + 1), (lpMapCtl.GetChipSize() / 2)), LDR_GP_ITEM) == LDR_CHIP_BLANK)
+		if (lpMapCtl.GetMapData(pos + VECTOR2((lpMapCtl.GetChipSize() + 1), (lpMapCtl.GetChipSize() / 2)), LDR_GP_ITEM) == LDR_CHIP_BLANK ||
+			lpMapCtl.GetMapData(pos + VECTOR2((lpMapCtl.GetChipSize() + 1), (lpMapCtl.GetChipSize() / 2)), LDR_GP_ITEM) == ITEM_CHIP_BLANK)
 		{
 			if (cpTypeR == EDIT_CHIP_WBL || cpTypeR == EDIT_CHIP_BBL05 || cpTypeR == EDIT_CHIP_BBL05_L || CheckChip(PLDir, cpTypeR))
 			{
@@ -167,7 +157,7 @@ void Player::SetMove(void)
 					{
 						if ((Obj::animCnt % 20) == 0)
 						{
-							lpGameTask.AddScore(10);
+							GameTask::GetInstance().AddScore(10);
 						}
 						pos.x += speed;
 					}
@@ -218,7 +208,8 @@ void Player::SetMove(void)
 	{
 		Obj::animCnt++;
 
-		if (lpMapCtl.GetMapData(pos + VECTOR2(-1, (lpMapCtl.GetChipSize() / 2)), LDR_GP_ITEM) == LDR_CHIP_BLANK)
+		if (lpMapCtl.GetMapData(pos + VECTOR2(-1, (lpMapCtl.GetChipSize() / 2)), LDR_GP_ITEM) == LDR_CHIP_BLANK || 
+			lpMapCtl.GetMapData(pos + VECTOR2(-1, (lpMapCtl.GetChipSize() / 2)), LDR_GP_ITEM) == ITEM_CHIP_BLANK)
 		{
 			if (cpTypeL == EDIT_CHIP_WBL || cpTypeL == EDIT_CHIP_BBL05 || cpTypeL == EDIT_CHIP_BBL05_L || CheckChip(PLDir, cpTypeL))
 			{
@@ -278,7 +269,7 @@ void Player::SetMove(void)
 					{
 						if ((Obj::animCnt % 20) == 0)
 						{
-							lpGameTask.AddScore(10);
+							GameTask::GetInstance().AddScore(10);
 						}
 						pos.x -= speed;
 					}
@@ -332,7 +323,8 @@ void Player::SetMove(void)
 	{
 		Obj::animCnt++;
 
-		if (lpMapCtl.GetMapData(pos + VECTOR2((lpMapCtl.GetChipSize() / 2), -1), LDR_GP_ITEM) == LDR_CHIP_BLANK)
+		if (lpMapCtl.GetMapData(pos + VECTOR2((lpMapCtl.GetChipSize() / 2), -1), LDR_GP_ITEM) == LDR_CHIP_BLANK || 
+			lpMapCtl.GetMapData(pos + VECTOR2((lpMapCtl.GetChipSize() / 2), -1), LDR_GP_ITEM) == ITEM_CHIP_BLANK)
 		{
 			if (cpTypeU == EDIT_CHIP_UBL || cpTypeU == EDIT_CHIP_BBL05_U || cpTypeU == EDIT_CHIP_BBL05_D || CheckChip(PLDir, cpTypeU))
 			{
@@ -402,7 +394,7 @@ void Player::SetMove(void)
 					{
 						if ((Obj::animCnt % 20) == 0)
 						{
-							lpGameTask.AddScore(10);
+							GameTask::GetInstance().AddScore(10);
 						}
 						pos.y -= speed;
 					}
@@ -450,7 +442,8 @@ void Player::SetMove(void)
 	{
 		Obj::animCnt++;
 
-		if (lpMapCtl.GetMapData(pos + VECTOR2((lpMapCtl.GetChipSize() / 2), lpMapCtl.GetChipSize() + 1), LDR_GP_ITEM) == LDR_CHIP_BLANK)
+		if (lpMapCtl.GetMapData(pos + VECTOR2((lpMapCtl.GetChipSize() / 2), lpMapCtl.GetChipSize() + 1), LDR_GP_ITEM) == LDR_CHIP_BLANK ||
+			lpMapCtl.GetMapData(pos + VECTOR2((lpMapCtl.GetChipSize() / 2), lpMapCtl.GetChipSize() + 1), LDR_GP_ITEM) == ITEM_CHIP_BLANK)
 		{
 
 			if (cpTypeD == EDIT_CHIP_UBL || cpTypeD == EDIT_CHIP_BBL05_U || cpTypeD == EDIT_CHIP_BBL05_D || CheckChip(PLDir, cpTypeD))
@@ -513,7 +506,7 @@ void Player::SetMove(void)
 					{
 						if ((Obj::animCnt % 20) == 0)
 						{
-							lpGameTask.AddScore(10);
+							GameTask::GetInstance().AddScore(10);
 						}
 						pos.y += speed;
 					}
@@ -559,7 +552,7 @@ void Player::SetMove(void)
 	}
 	if (lpMapCtl.GetMapData(pos + VECTOR2((lpMapCtl.GetChipSize() / 2), -1), LDR_GP_ITEM) == ITEM_CHIP_STONE)
 	{
-		lpGameTask.SetCheckStone(pos / CHIP_SIZE);
+		GameTask::GetInstance().SetCheckStone(pos / CHIP_SIZE);
 	}
 
 }
@@ -570,7 +563,7 @@ void Player::StartAnim(void)
 	if (tmpPos.y == 7 && PLDir != DIR_DOWN)
 	{
 		PLDir = DIR_NON;
-		lpGameTask.SetStartFlag(true);
+		GameTask::GetInstance().SetStartFlag(true);
 	}
 
 	if (tmpPos.y == 1)

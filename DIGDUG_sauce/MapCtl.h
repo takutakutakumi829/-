@@ -88,6 +88,7 @@ enum CHIP_TYPE {
 
 	ITEM_CHIP_FLOWER,	// â‘
 	ITEM_CHIP_STONE,		// ä‚
+	ITEM_CHIP_BLANK,
 
 
 	LDR_CHIP_EDIT,		// ¥√ﬁ®Øƒóp∂∞øŸ
@@ -97,15 +98,11 @@ enum CHIP_TYPE {
 
 #define LAST_EDIT_CHIP ITEM_CHIP_STONE		//	¥√ﬁ®ØƒÇ≈égÇ§ç≈å„ÇÃCHIP
 #define START_EDIT_CHIP LDR_CHIP_BLANK
-//#define GAME_AREA_CNT_X (13)
-//#define GAME_AREA_CNT_Y (15)
-//#define CHIP_SIZE		(32)
-//#define CHIP_CHAR_SIZE	(16)
+
 #define SET_MAP_ID(X,Y)  MapCtl::GetInstance().SetMapData(X,Y)
 #define GET_MAP_ID(X,Z)	 MapCtl::GetInstance().GetMapData(X,Z)
 #define GET_MAP_ID2(X,Y,Z) MapCtl::GetInstance().GetMapData(X,Y,Z)
 #define GET_MAP_SIZE()	 MapCtl::GetInstance().GetChipSize()
-//# define DATA_BIT_LEN 8
 
 
 using VEC_CHIP = std::vector<unsigned int>;

@@ -37,11 +37,7 @@ Enemy::~Enemy()
 
 bool Enemy::Update(void)
 {
-	/*if (EnemyType == 2)
-	{
-		DrawFormatString(300, 40, GetColor(255, 255, 255), "“G‚Ì“–‚½‚è”»’è@%d", BeatenCnt);
-		DrawFormatString(300, 60, GetColor(255, 255, 255), "Ž€–SŽžŠÔ@%d", EnemyBeatenTime);
-	}*/
+
 	if (BeatenCnt == 0)
 	{
 		beatenFlag = false;
@@ -90,7 +86,7 @@ void Enemy::Draw(void)
 		{
 			if (EnemyBeatenTime == 0)
 			{
-				lpGameTask.AddScore(200 * EnemyType);
+				GameTask::GetInstance().AddScore(200 * EnemyType);
 			}
 			EnemyBeatenTime++;
 			DrawString(pos.x +  (CHIP_CHAR_SIZE / 2), pos.y + (CHIP_CHAR_SIZE / 2), (EnemyType == 1 ? "200" : "400"),GetColor(255,255,255));
@@ -128,10 +124,7 @@ void Enemy::SetMove(void)
 	int posX_BL = (pos.x % CHIP_SIZE);
 	int posY_BL = (pos.y % CHIP_SIZE);
 
-	/*DrawFormatString(200, 40, GetColor(255, 255, 255), "XÀ•W %d ", posX_BL);
-	DrawFormatString(200, 60, GetColor(255, 255, 255), "YÀ•W %d ", posY_BL);*/
-
-	if (!(lpGameTask.GameStartFlag))
+	if (!(GameTask::GetInstance().GameStartFlag))
 	{
 		checkFlag = true;
 	}
@@ -448,14 +441,7 @@ bool Enemy::SearchPlayer(void)
 
 	VECTOR2 tmpPos(pos / CHIP_SIZE);
 	VECTOR2 targetPos(target.lock()->GetPos() / CHIP_SIZE);
-	/*DrawFormatString(500, 40, GetColor(255, 255, 255), " %d ", targetPos.x);
-	DrawFormatString(500, 60, GetColor(255, 255, 255), " %d ", targetPos.y);
 
-	DrawFormatString(550, 40, GetColor(255, 255, 255), " %d ", tmpPos.x);
-	DrawFormatString(550, 60, GetColor(255, 255, 255), " %d ", tmpPos.y);
-
-	DrawFormatString(550, 80, GetColor(255, 255, 255), " %d ", SearchCnt.x / 32);
-	DrawFormatString(550, 100, GetColor(255, 255, 255), " %d ", SearchCnt.y / 32);*/
 
 	SearchCnt = { 0,0 };
 
